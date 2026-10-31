@@ -34,6 +34,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .tile{flex:1 0 48px;max-width:64px;height:58px;border:0;border-radius:18px;cursor:pointer;touch-action:manipulation;
   font:600 28px/1 var(--font-display);color:var(--tc);background:color-mix(in srgb,var(--tc) 12%,#fff);
   transition:transform .18s cubic-bezier(.34,1.56,.64,1),background .15s}
+.tile-all{flex:1 0 58px;max-width:78px;font-size:22px}
 .tile:active{transform:scale(.93)}
 .tile[aria-pressed="true"]{background:var(--tc);color:#fff;transform:translateY(-2px) scale(1.08)}
 .tile:focus-visible,.nav:focus-visible,.speak:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
@@ -52,6 +53,9 @@ main{display:flex;flex-direction:column;align-items:center;gap:18px;padding-bloc
 .emoji{font-size:calc(var(--size)*.44);line-height:1;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}
 .art.has-photo{width:74%;height:74%}
 .photo{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;display:block}
+.voicebar{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:var(--muted)}
+.voicebar select{font:700 15px var(--font-body);color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:8px 10px;max-width:min(60vw,320px)}
+.voicenote{margin:0;font-size:13px;font-weight:700;color:var(--muted);text-align:center;max-width:44ch}
 .credit{margin:6px 0 0;font-size:13px;font-weight:700;color:var(--muted);text-align:center;max-width:44ch}
 .credit a{color:inherit}
 .art.pop{animation:pop .5s cubic-bezier(.34,1.56,.64,1)}
@@ -86,7 +90,7 @@ main{display:flex;flex-direction:column;align-items:center;gap:18px;padding-bloc
   <nav class="ribbon-inner" id="ribbon" aria-label="Alphabet"></nav>
 </header>
 <main>
-  <p class="hint" id="hint">Tap a letter to meet a fruit</p>
+  <p class="hint" id="hint">Tap a letter, or All, to meet a fruit</p>
   <section class="stage" aria-label="Fruit picture">
     <div class="card" id="card"><div class="chip" id="chip" aria-hidden="true">Aa</div><div class="art" id="art"></div></div>
     <button class="nav prev" id="prev" type="button" aria-label="Previous fruit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4l-8 8 8 8"/></svg></button>
@@ -99,6 +103,8 @@ main{display:flex;flex-direction:column;align-items:center;gap:18px;padding-bloc
     <p class="taste" id="taste"></p>
   </section>
   <button class="speak" id="speak" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 010 7M19 6a8.5 8.5 0 010 12"/></svg><span>Hear it again</span></button>
+  <div class="voicebar" id="voicebar"><label for="voicesel">Voice</label><select id="voicesel"></select></div>
+  <p class="voicenote" id="voicenote" hidden></p>
   <p class="credit">Fruit photos: <a href="https://github.com/fruits-360" target="_blank" rel="noopener">Fruits-360</a> by Mihai Oltean, CC BY-SA 4.0, resized. Fruits without a photo are drawings.</p>
 </main>
 
@@ -129,12 +135,12 @@ S('D','Dinosaur Egg',{k:'bumpy',c:'#7a5c8e',c2:'#b69ac4',dots:'#e3d58a',rx:56,ry
 S('D','Date',{k:'oval',c:'#7b3f1e',c2:'#b8764a',rx:28,ry:52,rot:35},'very sweet and chewy'),
 S('D','Dewberry',{k:'berries',c:'#3d2a5a',c2:'#7a5fa8'},'sweet and juicy'),
 S('D','Dragon Fruit',{k:'dragon',c:'#e0357f',c2:'#ff86bb'},'mild and a little sweet, with tiny crunchy seeds'),
-S('D','Durian',{k:'spiky',c:'#c9c24a',c2:'#ece78a',n:16,R:84,r:58,tip:'#8a7a2a'},'creamy and sweet, but it smells very strong!',{say:'dur-ee-an'}),
+S('D','Durian',{k:'spiky',c:'#c9c24a',c2:'#ece78a',n:16,R:84,r:58,tip:'#8a7a2a'},'creamy and sweet, but it smells very strong!'),
 
 S('E','Elderberry',{k:'berries',c:'#3a2a52',c2:'#7a5fa8',r:17},'tangy and a little sour, and we cook it into jam first'),
 S('E','Eggfruit',{k:'oval',c:'#f4c20d',c2:'#ffe680',rx:46,ry:60},'sweet, soft and crumbly',{say:'egg fruit'}),
 S('E','Evergreen Huckleberry',{k:'trio',c:'#2a2a3d',c2:'#5a5a86'},'sweet and a little sour'),
-S('E','Entawak',{k:'bumpy',c:'#b5c64a',c2:'#dbe58a',dots:'#7c8a2e',rx:48,ry:64},'sweet and soft',{say:'en-tah-wak'}),
+S('E','Entawak',{k:'bumpy',c:'#b5c64a',c2:'#dbe58a',dots:'#7c8a2e',rx:48,ry:64},'sweet and soft',{say:'en tah wak'}),
 
 S('F','Fig',{k:'pear',c:'#5b2d5e',c2:'#a068a4'},'sweet and soft, with tiny crunchy seeds'),
 S('F','Farkleberry',{k:'trio',c:'#2f2f55',c2:'#6464a0'},'mild and a little dry, with tiny seeds'),
@@ -143,7 +149,7 @@ S('F','Finger Lime',{k:'long',c:'#7a9a2e',c2:'#b5d46a',rx:80,ry:16,rot:-20},'sou
 S('G','Grapefruit',{k:'round',c:'#f7b267',c2:'#ffdfae',r:62},'tangy and a little sour'),
 F('G','Grape','🍇','#7048e8','sweet and juicy'),
 S('G','Gooseberry',{k:'net',c:'#bfd96e',c2:'#e2f0a8',line:'#7fa23a'},'sour and juicy'),
-S('G','Guava',{k:'round',c:'#b9d65a',c2:'#ffd0a0',r:56},'sweet and juicy, with tiny seeds',{say:'gwah-va'}),
+S('G','Guava',{k:'round',c:'#b9d65a',c2:'#ffd0a0',r:56},'sweet and juicy, with tiny seeds',{say:'gwah va'}),
 
 F('H','Honeydew','🍈','#8bc34a','sweet and juicy'),
 S('H','Hackberry',{k:'trio',c:'#b5652e',c2:'#e0a070',r:26},'sweet and a little dry, like a tiny date'),
@@ -152,22 +158,22 @@ S('H','Huckleberry',{k:'trio',c:'#3b3b7a',c2:'#7a7ac0'},'sweet and a little sour
 
 S('I','Indian Prune',{k:'round',c:'#a31d3b',c2:'#e0647f',r:48},'sweet and a little sour'),
 S('I','Indonesian Lime',{k:'round',c:'#8bc34a',c2:'#c8e69a',r:48},'very sour'),
-S('I','Imbe',{k:'round',c:'#f08a24',c2:'#ffc680',r:48},'sweet and a little sour',{say:'im-bay'}),
+S('I','Imbe',{k:'round',c:'#f08a24',c2:'#ffc680',r:48},'sweet and a little sour',{say:'im bay'}),
 S('I','Indian Fig',{k:'bumpy',c:'#d6336c',c2:'#f27aa3',dots:'#ffd43b',rx:46,ry:62},'sweet and juicy'),
 
 S('J','Jackfruit',{k:'bumpy',c:'#a8b94a',c2:'#d6e08a',dots:'#74842a',rx:52,ry:66},'sweet and chewy'),
 S('J','Java Apple',{k:'bell',c:'#e8607a',c2:'#ffa0b2'},'crunchy, juicy and a little sweet'),
-S('J','Jambolan',{k:'oval',c:'#4b2f6b',c2:'#8a68ac',rx:40,ry:52},'sweet and a little sour',{say:'jam-bo-lan'}),
+S('J','Jambolan',{k:'oval',c:'#4b2f6b',c2:'#8a68ac',rx:40,ry:52},'sweet and a little sour',{say:'jam bo lan'}),
 
 F('K','Kiwi','🥝','#7cb342','sweet and tangy, with tiny crunchy seeds'),
 S('K','Key Lime',{k:'round',c:'#8fcf4a',c2:'#cdee9a',r:46},'sour and tangy'),
-S('K','Kumquat',{k:'oval',c:'#f7a21b',c2:'#ffd078',rx:38,ry:46},'sweet and sour, and you can eat the skin too',{say:'kum-kwat'}),
+S('K','Kumquat',{k:'oval',c:'#f7a21b',c2:'#ffd078',rx:38,ry:46},'sweet and sour, and you can eat the skin too',{say:'kum kwat'}),
 
 S('L','Lime',{k:'round',c:'#6cc04a',c2:'#b6e48e',r:56},'sour and tangy'),
 F('L','Lemon','🍋','#f2d024','very sour'),
-S('L','Longan',{k:'round',c:'#c9a06b',c2:'#e9d0a6',r:44},'sweet and juicy',{say:'long-gan'}),
-S('L','Lychee',{k:'bumpy',c:'#d93d4a',c2:'#f27a84',dots:'#f7a4aa',rx:58,ry:58,nl:1},'sweet and juicy, with a flowery smell',{say:'lie-chee'}),
-S('L','Loquat',{k:'pear',c:'#f5b142',c2:'#ffdc90',s:.66},'sweet and a little tangy',{say:'low-kwat'}),
+S('L','Longan',{k:'round',c:'#c9a06b',c2:'#e9d0a6',r:44},'sweet and juicy',{say:'long gan'}),
+S('L','Lychee',{k:'bumpy',c:'#d93d4a',c2:'#f27a84',dots:'#f7a4aa',rx:58,ry:58,nl:1},'sweet and juicy, with a flowery smell',{say:'lee chee'}),
+S('L','Loquat',{k:'pear',c:'#f5b142',c2:'#ffdc90',s:.66},'sweet and a little tangy',{say:'low kwat'}),
 
 F('M','Mango','🥭','#f59f00','sweet and juicy'),
 F('M','Mandarin Orange','🍊','#f08c00','sweet and juicy, and easy to peel'),
@@ -176,12 +182,12 @@ F('M','Melon','🍈','#8bc34a','sweet, juicy and cool'),
 
 S('N','Nectarine',{k:'round',c:'#f0572f',c2:'#ffb36b',r:56},'sweet and juicy, with smooth skin'),
 F('N','Navel Orange','🍊','#f08c00','sweet and juicy'),
-S('N','Nashi Pear',{k:'bumpy',c:'#d8b45a',c2:'#f4e08a',dots:'#a07b2a',rx:60,ry:58},'sweet, juicy and crunchy',{say:'nah-shee'}),
+S('N','Nashi Pear',{k:'bumpy',c:'#d8b45a',c2:'#f4e08a',dots:'#a07b2a',rx:60,ry:58},'sweet, juicy and crunchy',{say:'nah shee'}),
 
 F('O','Olive','🫒','#6b7a2a','salty and squishy'),
 F('O','Orange','🍊','#f08c00','sweet and juicy, with a little tang'),
-S('O','Ogeechee Lime',{k:'oval',c:'#c5d96b',c2:'#e8f2a8',rx:40,ry:50,rot:15},'sour and tangy',{say:'oh-gee-chee'}),
-S('O','Oval Kumquat',{k:'oval',c:'#f7a21b',c2:'#ffd078',rx:32,ry:52},'sweet and sour',{say:'oval kum-kwat'}),
+S('O','Ogeechee Lime',{k:'oval',c:'#c5d96b',c2:'#e8f2a8',rx:40,ry:50,rot:15},'sour and tangy',{say:'oh gee chee'}),
+S('O','Oval Kumquat',{k:'oval',c:'#f7a21b',c2:'#ffd078',rx:32,ry:52},'sweet and sour',{say:'oval kum kwat'}),
 
 S('P','Papaya',{k:'pear',c:'#f59a3d',c2:'#ffd08a',rot:-20},'sweet and soft'),
 S('P','Persimmon',{k:'persimmon',c:'#ff8a1f',c2:'#ffc070'},'sweet and soft, like honey'),
@@ -194,9 +200,9 @@ S('P','Passion Fruit',{k:'round',c:'#6b2f7a',c2:'#a85cb8',r:54},'sweet and sour,
 
 S('Q','Quince',{k:'pear',c:'#f2d13d',c2:'#fff08a'},'sour and hard when raw, but yummy when it is cooked'),
 S('Q','Queen Anne Cherry',{k:'cherries',c:'#f2c14e',c2:'#ffe9a8'},'sweet and juicy'),
-S('Q','Quararibea',{k:'oval',c:'#c98a4b',c2:'#ecbc88',rx:44,ry:58},'sweet and soft',{say:'kwah-rah-ree-bay-ah',aka:'also called Chupa Chupa'}),
+S('Q','Quararibea',{k:'oval',c:'#c98a4b',c2:'#ecbc88',rx:44,ry:58},'sweet and soft',{say:'kwah rah ree bay ah',aka:'also called Chupa Chupa'}),
 
-S('R','Rambutan',{k:'spiky',c:'#d6282a',c2:'#f06a6a',n:30,R:78,r:64,tip:'#7bc043'},'sweet and juicy, like a grape',{say:'ram-boo-tan'}),
+S('R','Rambutan',{k:'spiky',c:'#d6282a',c2:'#f06a6a',n:30,R:78,r:64,tip:'#7bc043'},'sweet and juicy, like a grape',{say:'ram boo tan'}),
 S('R','Raspberry',{k:'berries',c:'#d8344f',c2:'#f27a8c'},'sweet and a little sour'),
 S('R','Rose Hip',{k:'oval',c:'#e0452b',c2:'#f5876f',rx:36,ry:50},'tangy and a little sweet'),
 
@@ -210,24 +216,24 @@ S('T','Tamarind',{k:'pod',c:'#b0814f',c2:'#d8b080',w:34},'sweet and sour, and a 
 F('T','Tart Cherry','🍒','#c2255c','sour and tangy'),
 
 S('U','Ugli Fruit',{k:'bumpy',c:'#cdbf4a',c2:'#e8df8a',dots:'#8c8a2c',rx:60,ry:56},'sweet, juicy and a little tangy'),
-S('U','Uniq Fruit',{k:'bumpy',c:'#d6c35a',c2:'#efe49a',dots:'#9d8f2a',n:20,rx:54,ry:54},'sweet and juicy',{say:'you-neek'}),
-S('U','Ugni',{k:'trio',c:'#b03a55',c2:'#e07890',r:24},'sweet, like a tiny strawberry',{say:'oog-nee'}),
+S('U','Uniq Fruit',{k:'bumpy',c:'#d6c35a',c2:'#efe49a',dots:'#9d8f2a',n:20,rx:54,ry:54},'sweet and juicy',{say:'you neek'}),
+S('U','Ugni',{k:'trio',c:'#b03a55',c2:'#e07890',r:24},'sweet, like a tiny strawberry',{say:'oog nee'}),
 
 S('V','Vanilla Bean',{k:'pod',c:'#4a3225',c2:'#8a6a55',w:16,d:'M26 160 Q100 110 180 40'},'',{sent:'A vanilla bean makes ice cream smell and taste sweet.'}),
 S('V','Velvet Pink Banana',{k:'pod',c:'#f07aa0',c2:'#ffb3cc',w:44,d:'M44 140 Q92 152 150 84'},'sweet and soft'),
-S('V','Voavanga',{k:'round',c:'#f0a030',c2:'#ffd080',r:44},'sweet and a little sour',{say:'vwah-vahn-ga'}),
+S('V','Voavanga',{k:'round',c:'#f0a030',c2:'#ffd080',r:44},'sweet and a little sour',{say:'vwah vahng gah'}),
 
 F('W','Watermelon','🍉','#e03131','sweet, juicy and cool'),
 S('W','Wolfberry',{k:'trio',c:'#e5452e',c2:'#f58a70',r:24},'sweet and a little sour'),
 S('W','White Mulberry',{k:'berries',c:'#efe6c6',c2:'#fffbe8',r:17},'very sweet and soft'),
 
-F('X','Xigua','🍉','#e03131','sweet and juicy',{say:'shee-gwah',aka:'a Chinese watermelon'}),
-S('X','Ximenia',{k:'round',c:'#f0a63a',c2:'#ffd488',r:46},'a little sour and a little sweet',{say:'zi-mee-nee-ah'}),
-S('X','Xango Mangosteen',{k:'persimmon',c:'#5b2a6e',c2:'#a068b8'},'sweet and a little tangy',{say:'zahn-go mang-go-steen'}),
+F('X','Xigua','🍉','#e03131','sweet and juicy',{say:'shee gwah',aka:'a Chinese watermelon'}),
+S('X','Ximenia',{k:'round',c:'#f0a63a',c2:'#ffd488',r:46},'a little sour and a little sweet',{say:'zi mee nee ah'}),
+S('X','Xango Mangosteen',{k:'persimmon',c:'#5b2a6e',c2:'#a068b8'},'sweet and a little tangy',{say:'zahn go mang go steen'}),
 
 S('Y','Yellow Passion Fruit',{k:'round',c:'#f5cd2a',c2:'#fff08a',r:54},'sour and sweet, with tiny crunchy seeds'),
-S('Y','Yunnan Hackberry',{k:'trio',c:'#b5652e',c2:'#e0a070',r:26},'a little sweet and chewy',{say:'you-nan hackberry'}),
-S('Y','Yangmei',{k:'bumpy',c:'#a3204a',c2:'#d86a8a',dots:'#e85d7a',rx:54,ry:54},'sweet and a little sour, and very juicy',{say:'yahng-may'}),
+S('Y','Yunnan Hackberry',{k:'trio',c:'#b5652e',c2:'#e0a070',r:26},'a little sweet and chewy',{say:'you nan hackberry'}),
+S('Y','Yangmei',{k:'bumpy',c:'#a3204a',c2:'#d86a8a',dots:'#e85d7a',rx:54,ry:54},'sweet and a little sour, and very juicy',{say:'yang may'}),
 
 S('Z','Zig Zag Vine Fruit',{k:'round',c:'#f08a3c',c2:'#ffc080',r:48},'sweet and soft'),
 F('Z','Zinfandel Grape','🍇','#7048e8','sweet and juicy'),
@@ -237,7 +243,7 @@ S('Z','Zucchini',{k:'long',c:'#3f8f3f',c2:'#8ad88a'},'mild and soft when it is c
 /* Real photos (Fruits-360 dataset, resized). Fruits without one keep their emoji or drawing. */
 const PHOTOS={"Apple":"images/apple.jpg","Apricot":"images/apricot.jpg","Avocado":"images/avocado.jpg","Banana":"images/banana.jpg","Bing Cherry":"images/bing-cherry.jpg","Blackberry":"images/blackberry.jpg","Blueberry":"images/blueberry.jpg","Cantaloupe":"images/cantaloupe.jpg","Cherry":"images/cherry.jpg","Clementine":"images/clementine.jpg","Cucumber":"images/cucumber.jpg","Damson Plum":"images/damson-plum.jpg","Date":"images/date.jpg","Dragon Fruit":"images/dragon-fruit.jpg","Fig":"images/fig.jpg","Grape":"images/grape.jpg","Grapefruit":"images/grapefruit.jpg","Guava":"images/guava.jpg","Honeycrisp Apple":"images/honeycrisp-apple.jpg","Huckleberry":"images/huckleberry.jpg","Indian Fig":"images/indian-fig.jpg","Kiwi":"images/kiwi.jpg","Kumquat":"images/kumquat.jpg","Lemon":"images/lemon.jpg","Lychee":"images/lychee.jpg","Mandarin Orange":"images/mandarin-orange.jpg","Mango":"images/mango.jpg","Melon":"images/melon.jpg","Mulberry":"images/mulberry.jpg","Navel Orange":"images/navel-orange.jpg","Nectarine":"images/nectarine.jpg","Orange":"images/orange.jpg","Papaya":"images/papaya.jpg","Passion Fruit":"images/passion-fruit.jpg","Peach":"images/peach.jpg","Persimmon":"images/persimmon.jpg","Pineapple":"images/pineapple.jpg","Pomegranate":"images/pomegranate.jpg","Prickly Pear":"images/prickly-pear.jpg","Queen Anne Cherry":"images/queen-anne-cherry.jpg","Quince":"images/quince.jpg","Rambutan":"images/rambutan.jpg","Raspberry":"images/raspberry.jpg","Star Fruit":"images/star-fruit.jpg","Strawberry":"images/strawberry.jpg","Sugar Baby Watermelon":"images/sugar-baby-watermelon.jpg","Tangerine":"images/tangerine.jpg","Tart Cherry":"images/tart-cherry.jpg","Tomato":"images/tomato.jpg","Watermelon":"images/watermelon.jpg","Xango Mangosteen":"images/xango-mangosteen.jpg","Xigua":"images/xigua.jpg","Zinfandel Grape":"images/zinfandel-grape.jpg","Zucchini":"images/zucchini.jpg"};
 const LETTERS='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-const BY={};LETTERS.forEach(l=>BY[l]=FRUITS.filter(f=>f.l===l));
+const BY={};LETTERS.forEach(l=>BY[l]=FRUITS.filter(f=>f.l===l));BY.ALL=FRUITS;
 const SAY={A:'Ay',B:'Bee',C:'See',D:'Dee',E:'Ee',F:'Eff',G:'Jee',H:'Aitch',I:'Eye',J:'Jay',K:'Kay',L:'El',M:'Em',N:'En',O:'Oh',P:'Pee',Q:'Cue',R:'Ar',S:'Ess',T:'Tee',U:'You',V:'Vee',W:'Double you',X:'Ex',Y:'Why',Z:'Zed'};
 
 /* ---------- Sentence ---------- */
@@ -308,31 +314,55 @@ function artSVG(a,label){
   return `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${label}">${defs}<g transform="translate(100 100) scale(${sc}) translate(-100 -100)">${b}</g></svg>`;
 }
 
-/* ---------- Voice ---------- */
+/* ---------- Voice (British English) ---------- */
 const synth='speechSynthesis' in window?window.speechSynthesis:null;
 let voice=null,speakTok=0;
+const speakBtn=document.getElementById('speak');
+const isUK=v=>/^en[-_]GB/i.test(v.lang)||/united kingdom|british/i.test(v.name);
+const rank=v=>{const n=v.name;let s=0;
+  if(/natural|premium|enhanced|online/i.test(n))s-=3;
+  if(/libby|sonia|serena|kate|martha|hazel|susan|fiona|google uk english female|female/i.test(n))s-=2;
+  if(/\bmale\b|daniel|oliver|arthur|ryan|thomas/i.test(n)&&!/female/i.test(n))s+=1;
+  return s;};
+function buildVoiceMenu(uk,en){
+  const sel=document.getElementById('voicesel'),note=document.getElementById('voicenote');
+  if(!sel)return;
+  const opt=v=>`<option value="${v.name.replace(/"/g,'&quot;')}"${voice&&v.name===voice.name?' selected':''}>${v.name}</option>`;
+  const rest=en.filter(v=>!uk.includes(v));
+  sel.innerHTML=(uk.length?`<optgroup label="British English">${uk.map(opt).join('')}</optgroup>`:'')+(rest.length?`<optgroup label="Other English">${rest.map(opt).join('')}</optgroup>`:'');
+  note.hidden=uk.length>0;
+  note.textContent=uk.length?'':"No British English voice was found on this device, so another English voice is used. Adding a British voice in the device's speech settings will fix this.";
+}
 function pickVoice(){
   if(!synth)return;
-  const all=synth.getVoices();
-  const gb=all.filter(v=>/^en[-_]GB/i.test(v.lang));
-  const pref=/(google uk english female|serena|kate|martha|hazel|susan|libby|sonia|fiona|stephanie|female)/i;
-  const en=all.filter(v=>/^en[-_]/i.test(v.lang));
-  voice=gb.find(v=>pref.test(v.name))||gb[0]||en.find(v=>/^en[-_]IN/i.test(v.lang))||en[0]||null;
+  const all=synth.getVoices();if(!all.length)return;
+  const en=all.filter(v=>/^en[-_]/i.test(v.lang)||isUK(v));
+  const uk=en.filter(isUK).sort((a,b)=>rank(a)-rank(b));
+  let saved=null;try{saved=localStorage.getItem('fruitabc-voice');}catch(e){}
+  voice=en.find(v=>v.name===saved)||uk[0]||en[0]||null;
+  buildVoiceMenu(uk,en);
 }
 if(synth){pickVoice();synth.addEventListener?.('voiceschanged',pickVoice);}
-const speakBtn=document.getElementById('speak');
+else{const vb=document.getElementById('voicebar');if(vb)vb.hidden=true;}
+document.getElementById('voicesel').addEventListener('change',e=>{
+  const v=synth&&synth.getVoices().find(x=>x.name===e.target.value);if(!v)return;
+  voice=v;try{localStorage.setItem('fruitabc-voice',v.name);}catch(err){}
+  speak(current());
+});
 function speak(f){
   if(!synth)return;
+  if(!voice)pickVoice();
   const tok=++speakTok;
   synth.cancel();
-  const a=new SpeechSynthesisUtterance(`${SAY[f.l]} is for ${f.say||f.n}.`);
-  const b=new SpeechSynthesisUtterance(sentence(f,true));
-  [a,b].forEach(u=>{if(voice)u.voice=voice;u.lang=voice?voice.lang:'en-GB';u.rate=.82;u.pitch=1.15;});
-  a.rate=.7;
+  const name=f.say||f.n;
+  /* The fruit name is said twice: once in the sentence, then again on its own and more slowly */
+  const parts=[[`${SAY[f.l]} is for ${name}.`,.72],[`${name}.`,.62],[sentence(f,true),.8]];
+  const us=parts.map(([t,r])=>{const u=new SpeechSynthesisUtterance(t);if(voice)u.voice=voice;u.lang=voice?voice.lang:'en-GB';u.rate=r;u.pitch=1.05;return u;});
   const done=()=>{if(tok===speakTok)speakBtn.classList.remove('speaking');};
-  b.onend=done;b.onerror=done;a.onerror=done;
+  us.forEach(u=>{u.onerror=done;});
+  us[us.length-1].onend=done;
   speakBtn.classList.add('speaking');
-  synth.speak(a);synth.speak(b);
+  us.forEach(u=>synth.speak(u));
 }
 
 /* ---------- Picking fruits: a shuffled bag per letter, so every tap is a fresh random fruit with that letter ---------- */
@@ -352,11 +382,12 @@ const $=id=>document.getElementById(id);
 const root=document.documentElement,ribbon=$('ribbon'),art=$('art'),card=$('card');
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let cur='A';
-const tiles=LETTERS.map((L,i)=>{
+const tiles=['ALL'].concat(LETTERS).map((L,k)=>{
+  const all=L==='ALL';
   const t=document.createElement('button');
-  t.type='button';t.className='tile';t.textContent=L;t.dataset.l=L;
-  t.style.setProperty('--tc',`var(--c${i%6})`);
-  t.setAttribute('aria-label','Letter '+L);t.setAttribute('aria-pressed','false');
+  t.type='button';t.className='tile'+(all?' tile-all':'');t.textContent=all?'All':L;t.dataset.l=L;
+  t.style.setProperty('--tc',all?'var(--ink)':`var(--c${(k-1)%6})`);
+  t.setAttribute('aria-label',all?'All fruits':'Letter '+L);t.setAttribute('aria-pressed','false');
   t.addEventListener('click',()=>{$('hint').hidden=true;selectLetter(L);});
   ribbon.appendChild(t);return t;
 });
@@ -375,8 +406,8 @@ function render(f){
   $('name').innerHTML=`<span class="ini">${f.n.charAt(0)}</span>${f.n.slice(1)}`;
   const aka=$('aka');aka.hidden=!f.aka;aka.textContent=f.aka||'';
   $('taste').textContent=sentence(f);
-  tiles.forEach(t=>t.setAttribute('aria-pressed',String(t.dataset.l===L)));
-  const t=tiles[i];
+  tiles.forEach(t=>t.setAttribute('aria-pressed',String(t.dataset.l===cur)));
+  const t=tiles.find(x=>x.dataset.l===cur);
   ribbon.scrollTo({left:t.offsetLeft-(ribbon.clientWidth-t.offsetWidth)/2,behavior:reduce?'auto':'smooth'});
 }
 function selectLetter(L,quiet){

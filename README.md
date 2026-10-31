@@ -1,6 +1,6 @@
 # Fruit ABC
 
-A tap-a-letter fruit alphabet for toddlers. Tap a letter in the ribbon and a random fruit starting with that letter pops up, with its name spoken in a British English voice and a one-line description of how it tastes. Arrows on the picture (or a swipe) move between fruits for that letter.
+A tap-a-letter fruit alphabet for toddlers. Tap a letter in the ribbon (or All for any fruit) and a random fruit starting with that letter pops up, with its name spoken slowly in a British English voice (a menu at the bottom lets you pick the clearest voice on your device) and a one-line description of how it tastes. Arrows on the picture (or a swipe) move between fruits for that letter.
 
 The fruit list comes from the [Wikijunior Fruit Alphabet](https://en.wikibooks.org/wiki/Wikijunior:Fruit_Alphabet) chart. All 99 fruits and their toddler-friendly taste sentences are in `index.html`.
 
