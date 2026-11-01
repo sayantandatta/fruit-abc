@@ -366,8 +366,8 @@ function speak(f){
   const tok=++speakTok;
   synth.cancel();
   const name=f.say||f.n;
-  /* The fruit name is said twice: once in the sentence, then again on its own and more slowly */
-  const parts=[[`${SAY[f.l]} is for ${name}.`,.72],[`${name}.`,.62],[sentence(f,true),.8]];
+  /* Just the letter, then the fruit name, slowly */
+  const parts=[[`${SAY[f.l]}.`,.7],[`${name}.`,.65]];
   const us=parts.map(([t,r])=>{const u=new SpeechSynthesisUtterance(t);if(voice)u.voice=voice;u.lang=voice?voice.lang:'en-GB';u.rate=r;u.pitch=1;return u;});
   const done=()=>{if(tok===speakTok)speakBtn.classList.remove('speaking');};
   us.forEach(u=>{u.onerror=done;});
