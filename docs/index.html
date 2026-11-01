@@ -356,55 +356,80 @@ function artSVG(a,label){
   return `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${label}">${defs}<g transform="translate(100 100) scale(${sc}) translate(-100 -100)">${b}</g></svg>`;
 }
 
-/* ---------- Voice (British English) ---------- */
-const synth='speechSynthesis' in window?window.speechSynthesis:null;
-let voice=null,speakTok=0;
+/* ---------- Voice (British English) ----------
+   In the browser this uses the Web Speech API. Inside the Android app (Capacitor) the WebView has no
+   speech API, so the native text-to-speech plugin is used instead. Both paths share the same voice menu. */
+const NATIVE=(()=>{try{return window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform()&&window.Capacitor.Plugins&&window.Capacitor.Plugins.TextToSpeech||null;}catch(e){return null;}})();
+const synth=!NATIVE&&'speechSynthesis' in window?window.speechSynthesis:null;
+let voice=null,speakTok=0,voiceList=[];
 const speakBtn=document.getElementById('speak');
-const isUK=v=>/^en[-_]GB/i.test(v.lang)||/united kingdom|british/i.test(v.name);
+const isUK=v=>/^en[-_]GB/i.test(v.lang)||/united kingdom|british|en-gb/i.test(v.name);
 const rank=v=>{const n=v.name;let s=0;
   if(/google uk english female/i.test(n))s-=10;
   if(/google uk english male/i.test(n))s-=9;
   if(/sonia|libby|ryan|mia|abbi|alfie|bella|elliot|ethan|hollie|maisie|noah|oliver|olivia|thomas/i.test(n)&&/online|natural|neural/i.test(n))s-=8;
   if(/hazel|susan|george/i.test(n))s-=6;
   if(/daniel|kate|serena|stephanie|martha|arthur|jamie|moira|fiona/i.test(n))s-=5;
-  if(/natural|premium|enhanced|online/i.test(n))s-=2;
+  if(/natural|premium|enhanced|online|wavenet|neural/i.test(n))s-=2;
+  if(/network|x-gba|x-gbb|x-gbc|x-gbd/i.test(n))s-=1;
   if(/siri/i.test(n))s+=1;
   return s;};
+const label=v=>v.name||v.voiceURI||v.lang;
 function buildVoiceMenu(uk,en){
   const sel=document.getElementById('voicesel'),note=document.getElementById('voicenote');
   if(!sel)return;
-  const opt=v=>`<option value="${v.name.replace(/"/g,'&quot;')}"${voice&&v.name===voice.name?' selected':''}>${v.name}</option>`;
+  const opt=v=>`<option value="${label(v).replace(/"/g,'&quot;')}"${voice&&label(v)===label(voice)?' selected':''}>${label(v)} (${v.lang})</option>`;
   const rest=en.filter(v=>!uk.includes(v));
   sel.innerHTML=(uk.length?`<optgroup label="British English">${uk.map(opt).join('')}</optgroup>`:'')+(rest.length?`<optgroup label="Other English">${rest.map(opt).join('')}</optgroup>`:'');
-  note.hidden=uk.length>0;
-  note.hidden=false;note.textContent=uk.length?`Using the ${voice?voice.name:''} voice (${voice?voice.lang:''}). Pick another above if it sounds off.`:"No British English voice was found on this device, so another English voice is used. Adding a British voice in the device's speech settings will fix this.";
+  note.hidden=false;
+  note.textContent=uk.length?`Using the ${voice?label(voice):''} voice (${voice?voice.lang:''}). Pick another above if it sounds off.`:(en.length?"No British English voice was found on this device, so another English voice is used. In Android, go to Settings > Text-to-speech > Google engine > Install voice data > English (United Kingdom).":"No speech voices were found on this device. In Android, install Google Text-to-speech and the English (United Kingdom) voice data.");
 }
-function pickVoice(){
-  if(!synth)return;
-  const all=synth.getVoices();if(!all.length)return;
+function chooseFrom(all){
+  voiceList=all;
   const en=all.filter(v=>/^en[-_]/i.test(v.lang)||isUK(v));
   const uk=en.filter(isUK).sort((a,b)=>rank(a)-rank(b));
   let saved=null;try{saved=localStorage.getItem('fruitabc-voice');}catch(e){}
-  voice=en.find(v=>v.name===saved)||uk[0]||en[0]||null;
+  voice=en.find(v=>label(v)===saved)||uk[0]||en[0]||null;
   buildVoiceMenu(uk,en);
 }
-if(synth){pickVoice();synth.addEventListener?.('voiceschanged',pickVoice);}
+function pickVoice(){
+  if(NATIVE){NATIVE.getSupportedVoices().then(r=>chooseFrom((r&&r.voices)||[])).catch(()=>chooseFrom([]));return;}
+  if(!synth)return;
+  const all=synth.getVoices();if(!all.length)return;
+  chooseFrom(all);
+}
+if(NATIVE||synth){pickVoice();if(synth)synth.addEventListener?.('voiceschanged',pickVoice);}
 else{const vb=document.getElementById('voicebar');if(vb)vb.hidden=true;}
 document.getElementById('voicesel').addEventListener('change',e=>{
-  const v=synth&&synth.getVoices().find(x=>x.name===e.target.value);if(!v)return;
-  voice=v;try{localStorage.setItem('fruitabc-voice',v.name);}catch(err){}
+  const v=voiceList.find(x=>label(x)===e.target.value);if(!v)return;
+  voice=v;try{localStorage.setItem('fruitabc-voice',label(v));}catch(err){}
   speak(current());
 });
 function speak(f){
-  if(!synth)return;
-  if(!voice)pickVoice();
-  const tok=++speakTok;
-  synth.cancel();
   const name=f.say||f.n;
   /* Just the letter, then the fruit name, slowly */
   const parts=[[`${f.l}.`,.7],[`${name}.`,.65]];
-  const us=parts.map(([t,r])=>{const u=new SpeechSynthesisUtterance(t);if(voice)u.voice=voice;u.lang=voice?voice.lang:'en-GB';u.rate=r;u.pitch=1;return u;});
+  const tok=++speakTok;
   const done=()=>{if(tok===speakTok)speakBtn.classList.remove('speaking');};
+  if(NATIVE){
+    speakBtn.classList.add('speaking');
+    (async()=>{
+      try{await NATIVE.stop();}catch(e){}
+      const idx=voice?voiceList.indexOf(voice):-1;
+      for(const [t,r] of parts){
+        if(tok!==speakTok)return;
+        const o={text:t,lang:voice?voice.lang:'en-GB',rate:r,pitch:1,volume:1,category:'ambient'};
+        if(idx>=0)o.voice=idx;
+        try{await NATIVE.speak(o);}catch(e){try{await NATIVE.speak({text:t,lang:'en-GB',rate:r});}catch(e2){}}
+      }
+      done();
+    })();
+    return;
+  }
+  if(!synth)return;
+  if(!voice)pickVoice();
+  synth.cancel();
+  const us=parts.map(([t,r])=>{const u=new SpeechSynthesisUtterance(t);if(voice)u.voice=voice;u.lang=voice?voice.lang:'en-GB';u.rate=r;u.pitch=1;return u;});
   us.forEach(u=>{u.onerror=done;});
   us[us.length-1].onend=done;
   speakBtn.classList.add('speaking');
