@@ -7,59 +7,14 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
-
-jobs:
-  apk:
-    name: Build APK
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-      - run: npm ci
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: 21
-      - uses: android-actions/setup-android@v3
-      - name: Copy the web app into the Android project
-        run: npx cap sync android
-      - name: Build debug APK
-        run: |
-          cd android
-          chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon
-          cp app/build/outputs/apk/debug/app-debug.apk ../FruitABC.apk
-      - uses: actions/upload-artifact@v4
-        with:
-          name: FruitABC-apk
-          path: FruitABC.apk
-      - name: Publish APK as the "latest" release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: latest
-          name: Fruit ABC (latest build)
-          body: "Android APK built from the latest commit. Download FruitABC.apk, open it on the phone or tablet, and allow installing from this source when asked."
-          files: FruitABC.apk
-          prerelease: false
-
   pages:
     name: Deploy site to GitHub Pages
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
+      - name: Publish docs/ to the gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          enablement: true
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: docs
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          force_orphan: true
