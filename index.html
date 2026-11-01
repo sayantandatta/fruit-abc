@@ -367,7 +367,7 @@ function speak(f){
   synth.cancel();
   const name=f.say||f.n;
   /* Just the letter, then the fruit name, slowly */
-  const parts=[[`${SAY[f.l]}.`,.7],[`${name}.`,.65]];
+  const parts=[[`${f.l}.`,.7],[`${name}.`,.65]];
   const us=parts.map(([t,r])=>{const u=new SpeechSynthesisUtterance(t);if(voice)u.voice=voice;u.lang=voice?voice.lang:'en-GB';u.rate=r;u.pitch=1;return u;});
   const done=()=>{if(tok===speakTok)speakBtn.classList.remove('speaking');};
   us.forEach(u=>{u.onerror=done;});
