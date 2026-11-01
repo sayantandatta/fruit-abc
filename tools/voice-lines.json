@@ -1,0 +1,596 @@
+[
+ {
+  "id": "apple",
+  "letter": "A",
+  "name": "Apple",
+  "text": "A. Apple."
+ },
+ {
+  "id": "apricot",
+  "letter": "A",
+  "name": "Apricot",
+  "text": "A. Apricot."
+ },
+ {
+  "id": "avocado",
+  "letter": "A",
+  "name": "Avocado",
+  "text": "A. Avocado."
+ },
+ {
+  "id": "banana",
+  "letter": "B",
+  "name": "Banana",
+  "text": "B. Banana."
+ },
+ {
+  "id": "boysenberry",
+  "letter": "B",
+  "name": "Boysenberry",
+  "text": "B. Boysenberry."
+ },
+ {
+  "id": "blackberry",
+  "letter": "B",
+  "name": "Blackberry",
+  "text": "B. Blackberry."
+ },
+ {
+  "id": "blueberry",
+  "letter": "B",
+  "name": "Blueberry",
+  "text": "B. Blueberry."
+ },
+ {
+  "id": "bing-cherry",
+  "letter": "B",
+  "name": "Bing Cherry",
+  "text": "B. Bing Cherry."
+ },
+ {
+  "id": "cherry",
+  "letter": "C",
+  "name": "Cherry",
+  "text": "C. Cherry."
+ },
+ {
+  "id": "cantaloupe",
+  "letter": "C",
+  "name": "Cantaloupe",
+  "text": "C. Cantaloupe."
+ },
+ {
+  "id": "crab-apple",
+  "letter": "C",
+  "name": "Crab Apple",
+  "text": "C. Crab Apple."
+ },
+ {
+  "id": "clementine",
+  "letter": "C",
+  "name": "Clementine",
+  "text": "C. Clementine."
+ },
+ {
+  "id": "cucumber",
+  "letter": "C",
+  "name": "Cucumber",
+  "text": "C. Cucumber."
+ },
+ {
+  "id": "damson-plum",
+  "letter": "D",
+  "name": "Damson Plum",
+  "text": "D. Damson Plum."
+ },
+ {
+  "id": "dinosaur-egg",
+  "letter": "D",
+  "name": "Dinosaur Egg",
+  "text": "D. Dinosaur Egg."
+ },
+ {
+  "id": "date",
+  "letter": "D",
+  "name": "Date",
+  "text": "D. Date."
+ },
+ {
+  "id": "dewberry",
+  "letter": "D",
+  "name": "Dewberry",
+  "text": "D. Dewberry."
+ },
+ {
+  "id": "dragon-fruit",
+  "letter": "D",
+  "name": "Dragon Fruit",
+  "text": "D. Dragon Fruit."
+ },
+ {
+  "id": "durian",
+  "letter": "D",
+  "name": "Durian",
+  "text": "D. Durian."
+ },
+ {
+  "id": "elderberry",
+  "letter": "E",
+  "name": "Elderberry",
+  "text": "E. Elderberry."
+ },
+ {
+  "id": "eggfruit",
+  "letter": "E",
+  "name": "Eggfruit",
+  "text": "E. Eggfruit."
+ },
+ {
+  "id": "evergreen-huckleberry",
+  "letter": "E",
+  "name": "Evergreen Huckleberry",
+  "text": "E. Evergreen Huckleberry."
+ },
+ {
+  "id": "entawak",
+  "letter": "E",
+  "name": "Entawak",
+  "text": "E. Entawak."
+ },
+ {
+  "id": "fig",
+  "letter": "F",
+  "name": "Fig",
+  "text": "F. Fig."
+ },
+ {
+  "id": "farkleberry",
+  "letter": "F",
+  "name": "Farkleberry",
+  "text": "F. Farkleberry."
+ },
+ {
+  "id": "finger-lime",
+  "letter": "F",
+  "name": "Finger Lime",
+  "text": "F. Finger Lime."
+ },
+ {
+  "id": "grapefruit",
+  "letter": "G",
+  "name": "Grapefruit",
+  "text": "G. Grapefruit."
+ },
+ {
+  "id": "grape",
+  "letter": "G",
+  "name": "Grape",
+  "text": "G. Grape."
+ },
+ {
+  "id": "gooseberry",
+  "letter": "G",
+  "name": "Gooseberry",
+  "text": "G. Gooseberry."
+ },
+ {
+  "id": "guava",
+  "letter": "G",
+  "name": "Guava",
+  "text": "G. Guava."
+ },
+ {
+  "id": "honeydew",
+  "letter": "H",
+  "name": "Honeydew",
+  "text": "H. Honeydew."
+ },
+ {
+  "id": "hackberry",
+  "letter": "H",
+  "name": "Hackberry",
+  "text": "H. Hackberry."
+ },
+ {
+  "id": "honeycrisp-apple",
+  "letter": "H",
+  "name": "Honeycrisp Apple",
+  "text": "H. Honeycrisp Apple."
+ },
+ {
+  "id": "huckleberry",
+  "letter": "H",
+  "name": "Huckleberry",
+  "text": "H. Huckleberry."
+ },
+ {
+  "id": "indian-prune",
+  "letter": "I",
+  "name": "Indian Prune",
+  "text": "I. Indian Prune."
+ },
+ {
+  "id": "indonesian-lime",
+  "letter": "I",
+  "name": "Indonesian Lime",
+  "text": "I. Indonesian Lime."
+ },
+ {
+  "id": "imbe",
+  "letter": "I",
+  "name": "Imbe",
+  "text": "I. Imbe."
+ },
+ {
+  "id": "indian-fig",
+  "letter": "I",
+  "name": "Indian Fig",
+  "text": "I. Indian Fig."
+ },
+ {
+  "id": "jackfruit",
+  "letter": "J",
+  "name": "Jackfruit",
+  "text": "J. Jackfruit."
+ },
+ {
+  "id": "java-apple",
+  "letter": "J",
+  "name": "Java Apple",
+  "text": "J. Java Apple."
+ },
+ {
+  "id": "jambolan",
+  "letter": "J",
+  "name": "Jambolan",
+  "text": "J. Jambolan."
+ },
+ {
+  "id": "kiwi",
+  "letter": "K",
+  "name": "Kiwi",
+  "text": "K. Kiwi."
+ },
+ {
+  "id": "key-lime",
+  "letter": "K",
+  "name": "Key Lime",
+  "text": "K. Key Lime."
+ },
+ {
+  "id": "kumquat",
+  "letter": "K",
+  "name": "Kumquat",
+  "text": "K. Kumquat."
+ },
+ {
+  "id": "lime",
+  "letter": "L",
+  "name": "Lime",
+  "text": "L. Lime."
+ },
+ {
+  "id": "lemon",
+  "letter": "L",
+  "name": "Lemon",
+  "text": "L. Lemon."
+ },
+ {
+  "id": "longan",
+  "letter": "L",
+  "name": "Longan",
+  "text": "L. Longan."
+ },
+ {
+  "id": "lychee",
+  "letter": "L",
+  "name": "Lychee",
+  "text": "L. Lychee."
+ },
+ {
+  "id": "loquat",
+  "letter": "L",
+  "name": "Loquat",
+  "text": "L. Loquat."
+ },
+ {
+  "id": "mango",
+  "letter": "M",
+  "name": "Mango",
+  "text": "M. Mango."
+ },
+ {
+  "id": "mandarin-orange",
+  "letter": "M",
+  "name": "Mandarin Orange",
+  "text": "M. Mandarin Orange."
+ },
+ {
+  "id": "mulberry",
+  "letter": "M",
+  "name": "Mulberry",
+  "text": "M. Mulberry."
+ },
+ {
+  "id": "melon",
+  "letter": "M",
+  "name": "Melon",
+  "text": "M. Melon."
+ },
+ {
+  "id": "nectarine",
+  "letter": "N",
+  "name": "Nectarine",
+  "text": "N. Nectarine."
+ },
+ {
+  "id": "navel-orange",
+  "letter": "N",
+  "name": "Navel Orange",
+  "text": "N. Navel Orange."
+ },
+ {
+  "id": "nashi-pear",
+  "letter": "N",
+  "name": "Nashi Pear",
+  "text": "N. Nashi Pear."
+ },
+ {
+  "id": "olive",
+  "letter": "O",
+  "name": "Olive",
+  "text": "O. Olive."
+ },
+ {
+  "id": "orange",
+  "letter": "O",
+  "name": "Orange",
+  "text": "O. Orange."
+ },
+ {
+  "id": "ogeechee-lime",
+  "letter": "O",
+  "name": "Ogeechee Lime",
+  "text": "O. Ogeechee Lime."
+ },
+ {
+  "id": "oval-kumquat",
+  "letter": "O",
+  "name": "Oval Kumquat",
+  "text": "O. Oval Kumquat."
+ },
+ {
+  "id": "papaya",
+  "letter": "P",
+  "name": "Papaya",
+  "text": "P. Papaya."
+ },
+ {
+  "id": "persimmon",
+  "letter": "P",
+  "name": "Persimmon",
+  "text": "P. Persimmon."
+ },
+ {
+  "id": "paw-paw",
+  "letter": "P",
+  "name": "Paw Paw",
+  "text": "P. Paw Paw."
+ },
+ {
+  "id": "prickly-pear",
+  "letter": "P",
+  "name": "Prickly Pear",
+  "text": "P. Prickly Pear."
+ },
+ {
+  "id": "peach",
+  "letter": "P",
+  "name": "Peach",
+  "text": "P. Peach."
+ },
+ {
+  "id": "pomegranate",
+  "letter": "P",
+  "name": "Pomegranate",
+  "text": "P. Pomegranate."
+ },
+ {
+  "id": "pineapple",
+  "letter": "P",
+  "name": "Pineapple",
+  "text": "P. Pineapple."
+ },
+ {
+  "id": "passion-fruit",
+  "letter": "P",
+  "name": "Passion Fruit",
+  "text": "P. Passion Fruit."
+ },
+ {
+  "id": "quince",
+  "letter": "Q",
+  "name": "Quince",
+  "text": "Q. Quince."
+ },
+ {
+  "id": "queen-anne-cherry",
+  "letter": "Q",
+  "name": "Queen Anne Cherry",
+  "text": "Q. Queen Anne Cherry."
+ },
+ {
+  "id": "quararibea",
+  "letter": "Q",
+  "name": "Quararibea",
+  "text": "Q. Quararibea."
+ },
+ {
+  "id": "rambutan",
+  "letter": "R",
+  "name": "Rambutan",
+  "text": "R. Rambutan."
+ },
+ {
+  "id": "raspberry",
+  "letter": "R",
+  "name": "Raspberry",
+  "text": "R. Raspberry."
+ },
+ {
+  "id": "rose-hip",
+  "letter": "R",
+  "name": "Rose Hip",
+  "text": "R. Rose Hip."
+ },
+ {
+  "id": "star-fruit",
+  "letter": "S",
+  "name": "Star Fruit",
+  "text": "S. Star Fruit."
+ },
+ {
+  "id": "strawberry",
+  "letter": "S",
+  "name": "Strawberry",
+  "text": "S. Strawberry."
+ },
+ {
+  "id": "sugar-baby-watermelon",
+  "letter": "S",
+  "name": "Sugar Baby Watermelon",
+  "text": "S. Sugar Baby Watermelon."
+ },
+ {
+  "id": "tomato",
+  "letter": "T",
+  "name": "Tomato",
+  "text": "T. Tomato."
+ },
+ {
+  "id": "tangerine",
+  "letter": "T",
+  "name": "Tangerine",
+  "text": "T. Tangerine."
+ },
+ {
+  "id": "tamarind",
+  "letter": "T",
+  "name": "Tamarind",
+  "text": "T. Tamarind."
+ },
+ {
+  "id": "tart-cherry",
+  "letter": "T",
+  "name": "Tart Cherry",
+  "text": "T. Tart Cherry."
+ },
+ {
+  "id": "ugli-fruit",
+  "letter": "U",
+  "name": "Ugli Fruit",
+  "text": "U. Ugli Fruit."
+ },
+ {
+  "id": "uniq-fruit",
+  "letter": "U",
+  "name": "Uniq Fruit",
+  "text": "U. Uniq Fruit."
+ },
+ {
+  "id": "ugni",
+  "letter": "U",
+  "name": "Ugni",
+  "text": "U. Ugni."
+ },
+ {
+  "id": "vanilla-bean",
+  "letter": "V",
+  "name": "Vanilla Bean",
+  "text": "V. Vanilla Bean."
+ },
+ {
+  "id": "velvet-pink-banana",
+  "letter": "V",
+  "name": "Velvet Pink Banana",
+  "text": "V. Velvet Pink Banana."
+ },
+ {
+  "id": "voavanga",
+  "letter": "V",
+  "name": "Voavanga",
+  "text": "V. Voavanga."
+ },
+ {
+  "id": "watermelon",
+  "letter": "W",
+  "name": "Watermelon",
+  "text": "W. Watermelon."
+ },
+ {
+  "id": "wolfberry",
+  "letter": "W",
+  "name": "Wolfberry",
+  "text": "W. Wolfberry."
+ },
+ {
+  "id": "white-mulberry",
+  "letter": "W",
+  "name": "White Mulberry",
+  "text": "W. White Mulberry."
+ },
+ {
+  "id": "xigua",
+  "letter": "X",
+  "name": "Xigua",
+  "text": "X. Xigua."
+ },
+ {
+  "id": "ximenia",
+  "letter": "X",
+  "name": "Ximenia",
+  "text": "X. Ximenia."
+ },
+ {
+  "id": "xango-mangosteen",
+  "letter": "X",
+  "name": "Xango Mangosteen",
+  "text": "X. Xango Mangosteen."
+ },
+ {
+  "id": "yellow-passion-fruit",
+  "letter": "Y",
+  "name": "Yellow Passion Fruit",
+  "text": "Y. Yellow Passion Fruit."
+ },
+ {
+  "id": "yunnan-hackberry",
+  "letter": "Y",
+  "name": "Yunnan Hackberry",
+  "text": "Y. Yunnan Hackberry."
+ },
+ {
+  "id": "yangmei",
+  "letter": "Y",
+  "name": "Yangmei",
+  "text": "Y. Yangmei."
+ },
+ {
+  "id": "zig-zag-vine-fruit",
+  "letter": "Z",
+  "name": "Zig Zag Vine Fruit",
+  "text": "Z. Zig Zag Vine Fruit."
+ },
+ {
+  "id": "zinfandel-grape",
+  "letter": "Z",
+  "name": "Zinfandel Grape",
+  "text": "Z. Zinfandel Grape."
+ },
+ {
+  "id": "zucchini",
+  "letter": "Z",
+  "name": "Zucchini",
+  "text": "Z. Zucchini."
+ }
+]
