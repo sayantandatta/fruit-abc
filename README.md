@@ -4,14 +4,23 @@ A tap-a-letter fruit alphabet for toddlers. Tap a letter in the ribbon (or All f
 
 The fruit list comes from the [Wikijunior Fruit Alphabet](https://en.wikibooks.org/wiki/Wikijunior:Fruit_Alphabet) chart. All 99 fruits and their toddler-friendly taste sentences are in `index.html`.
 
+## Android app
+
+The site is wrapped as a native Android app with [Capacitor](https://capacitorjs.com). Every push to `main` runs a GitHub Actions workflow that builds the APK on GitHub's servers and attaches it to the **latest** release at https://github.com/sayantandatta/fruit-abc/releases/tag/latest. Download `FruitABC.apk` on the phone or tablet, open it, and allow installs from that source when Android asks. The app works offline, rotates freely, and uses a two-column layout on tablets.
+
+The same page is also an installable web app (PWA) at https://sayantandatta.github.io/fruit-abc/ : open it in Chrome on Android and choose "Add to Home screen".
+
+To build locally instead: `npm ci`, `npx cap sync android`, then open `android/` in Android Studio.
+
 ## Files
 
-- `index.html` is the whole site, with no build step. Open it in a browser or serve it from GitHub Pages.
-- `images/` holds the fruit photos, named by fruit (`apple.jpg`, `dragon-fruit.jpg`). Fruits without a photo are shown as emoji or drawings.
+- `docs/` is the whole web app: `index.html`, `images/`, the icons, `manifest.webmanifest` and the service worker `sw.js`. GitHub Pages serves this folder.
+- `android/` is the Capacitor Android project. `npx cap sync android` copies `docs/` into it.
+- `.github/workflows/android.yml` builds the APK and deploys the site.
 
 ## Adding or replacing a photo
 
-Put a square-ish photo on a white background in `images/` and add a line to the `PHOTOS` object near the top of the script in `index.html`, for example `"Durian":"images/durian.jpg"`. The name must match the fruit name exactly.
+Put a photo in `docs/images/` and add a line to the `PHOTOS` object near the top of the script in `index.html`, for example `"Durian":"images/durian.jpg"`. The name must match the fruit name exactly.
 
 ## Photo credits
 

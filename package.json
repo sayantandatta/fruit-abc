@@ -1,0 +1,15 @@
+{
+  "name": "fruit-abc",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Fruit ABC: a tap-a-letter fruit alphabet for toddlers",
+  "scripts": {
+    "sync": "cap sync android",
+    "open": "cap open android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.6.10",
+    "@capacitor/cli": "^7.6.10",
+    "@capacitor/core": "^7.6.10"
+  }
+}

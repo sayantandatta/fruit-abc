@@ -1,0 +1,12 @@
+{
+  "appId": "com.sayantandatta.fruitabc",
+  "appName": "Fruit ABC",
+  "webDir": "docs",
+  "android": {
+    "allowMixedContent": false,
+    "backgroundColor": "#ffffff"
+  },
+  "server": {
+    "androidScheme": "https"
+  }
+}

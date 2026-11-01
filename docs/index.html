@@ -1,5 +1,17 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#ffffff">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="description" content="A tap-a-letter fruit alphabet for toddlers">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <title>Fruit ABC</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&display=swap">
@@ -47,7 +59,7 @@ main{display:flex;flex-direction:column;align-items:center;gap:18px;padding-bloc
 .card{position:absolute;inset:0;display:grid;place-items:center;overflow:hidden;border-radius:40px;
   background:var(--bg);border:3px solid color-mix(in srgb,var(--fruit) 30%,#fff);touch-action:pan-y;cursor:pointer;user-select:none}
 .card::before{content:"";position:absolute;width:80%;aspect-ratio:1;border-radius:50%;background:color-mix(in srgb,var(--fruit) 15%,#fff);transition:background .3s}
-.chip{position:absolute;left:20px;top:14px;font:700 clamp(28px,8vw,40px)/1 var(--font-display);color:var(--accent)}
+.chip{position:absolute;left:16px;top:12px;z-index:1;padding:2px 12px;border-radius:16px;background:rgba(255,255,255,.88);font:700 clamp(28px,8vw,40px)/1 var(--font-display);color:var(--accent)}
 .art{position:relative;width:62%;height:62%;display:grid;place-items:center}
 .art svg{width:100%;height:100%;display:block}
 .emoji{font-size:calc(var(--size)*.44);line-height:1;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}
@@ -89,7 +101,30 @@ main{display:flex;flex-direction:column;align-items:center;gap:18px;padding-bloc
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
-
+<style>
+html,body{height:100%}
+body{display:flex;flex-direction:column;min-height:100%}
+main{flex:1}
+/* Tablet / landscape: picture on the left, words on the right, bigger letters */
+@media (min-width:900px){
+  .tile{flex-basis:60px;max-width:84px;height:72px;font-size:34px;border-radius:22px}
+  .tile-all{font-size:26px;max-width:100px}
+  .ribbon-inner{gap:10px;padding-block:14px}
+  main{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"hint hint" "stage caption" "stage speak" "stage voice" "credit credit";
+    align-items:center;justify-content:center;column-gap:48px;row-gap:16px;max-width:1400px;margin:0 auto}
+  :root{--size:clamp(360px,min(46vw,78vh),760px)}
+  .hint{grid-area:hint}.stage{grid-area:stage}.caption{grid-area:caption;text-align:left;align-items:flex-start;width:auto;max-width:34ch}
+  .speak{grid-area:speak;justify-self:start}.voicebar{grid-area:voice;justify-self:start}.credit{grid-area:credit}.voicenote{grid-column:1/-1}
+  .name{font-size:clamp(48px,6vw,88px)}.taste{font-size:clamp(24px,2.6vw,34px)}
+}
+@media (min-width:900px) and (orientation:portrait){
+  main{grid-template-columns:1fr;grid-template-areas:"hint" "stage" "caption" "speak" "voice" "credit";justify-items:center}
+  .caption{text-align:center;align-items:center}.speak,.voicebar{justify-self:center}
+  :root{--size:clamp(360px,min(80vw,52vh),760px)}
+}
+</style>
+</head>
+<body>
 <header class="ribbon">
   <h1 class="sr">Fruit ABC</h1>
   <nav class="ribbon-inner" id="ribbon" aria-label="Alphabet"></nav>
@@ -458,4 +493,15 @@ document.addEventListener('keydown',e=>{
 });
 
 selectLetter('A',true);
+
+/* Offline support: install the service worker, then quietly cache every photo */
+if('serviceWorker' in navigator&&/^https?:/.test(location.protocol)){
+  window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').then(r=>{
+    const all=Object.values(PHOTOS).concat(['./','manifest.webmanifest']);
+    (r.active||r.installing||r.waiting)?.postMessage({precache:all});
+    navigator.serviceWorker.addEventListener('message',e=>{});
+  }).catch(()=>{});});
+}
 </script>
+</body>
+</html>
